@@ -36,6 +36,11 @@
           },
           "configurations": {
             "production": {
+              "i18n": {
+                "locales": {
+                  "es": "src/locale/messages.es.xlf"
+                }
+              },
               "budgets": [
                 {
                   "type": "initial",

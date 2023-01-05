@@ -1,0 +1,52 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 2%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+.w70{
+  width: 70%;
+}
+.w30{
+  width: 30%;
+  margin: 1%;
+}
+.w100{
+  width: 100%;
+  display: inline-flex;
+}
+.banner{
+  background-image: radial-gradient(circle at 43.84% -20.44%, #04dc04  0, #0cdc04  25%, #1ef31e 50%, #00f033 75%, #00ed45 100%);
+  height: 30%;
+  width: 50%;
+  border-radius: 40px;
+  box-shadow: 5px 5px 15px gray;
+  margin-left: 25%;
+  margin-top: 3%
+}
+button{
+  background-color: white !important;
+  color: #0080FF !important;
+  float: right;
+}
+.banner label{
+  color: #ffffff;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 65px;
+  padding-top: 8px;
+  
+}
+.contenedor{
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  display: inline-block;
+}

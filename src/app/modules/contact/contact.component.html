@@ -1,0 +1,86 @@
+<div class="contenedor">
+    <div class="banner">
+        <div class="w100">
+            <div class="w70">
+                <label>Green Leaves</label>
+            </div>
+            <div class="w30">
+                <img src="/assets/hoja.png" width="120" alt="leaves">
+            </div>
+        </div>
+    </div>
+    <div class="contenedor example-form">
+        <form [formGroup]="contactForm" class=" " *ngIf="!finish">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre:</mat-label>
+                <input matInput type="text" formControlName="name" />
+                <mat-error
+                    *ngIf="contactForm.controls['name'].hasError('required') || contactForm.controls['name'].hasError('whiteSpacesError')">
+                    El nombre es requerido.
+                </mat-error>
+                <mat-error *ngIf="contactForm.controls['name'].hasError('required')">
+                    El nombre es requerido.
+                </mat-error>
+
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>E-mail:</mat-label>
+                <input matInput type="text" formControlName="email" />
+                <mat-error *ngIf="contactForm.controls['email'].hasError('required')">
+                    El e-mail es requerido.
+                </mat-error>
+                <mat-error *ngIf="contactForm.controls['email'].hasError('pattern')">
+                    El formato es incorrecto, ejemplo: someone@company.com
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Teléfono:</mat-label>
+                <input matInput type="tel" formControlName="phone" />
+                <mat-error
+                    *ngIf="contactForm.controls['phone'].hasError('required') || contactForm.controls['phone'].hasError('whiteSpacesError')">
+                    El teléfono es requerido.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Fecha:</mat-label>
+                <input matInput [matDatepicker]="picker" type="text" formControlName="date" [min]="minDate"
+                    [max]="maxDate" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="contactForm.controls['date'].hasError('required')">
+                    La fecha es requerida.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Ciudad y Estado:</mat-label>
+                <input matInput type="text" formControlName="cityState" [matAutocomplete]="auto"
+                    (keyup)="searchLocations($event)" />
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayLocation">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option.name}}, {{option?.adminName1}}, {{option?.countryName}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error
+                    *ngIf="contactForm.controls['cityState'].hasError('required') || contactForm.controls['cityState'].hasError('whiteSpacesError')">
+                    Este campo es requerido.
+                </mat-error>
+                <mat-error *ngIf="contactForm.controls['cityState'].hasError('locationValidatorError')">
+                    Es necesario elegir una opción del listado.
+                </mat-error>
+            </mat-form-field>
+            <button type="submit" mat-stroked-button  (click)="preSave()"
+                [disabled]="blockButton">Guardar</button>
+        </form>
+    </div>
+    <div *ngIf="finish">
+        Estimado {{contactForm.controls['name'].value}},
+        Hemos recibido sus datos y nos pondremos en contacto con usted en la
+        brevedad posible. Enviaremos un correo con información a su cuenta:
+        {{contactForm.controls['email'].value}}.
+        Atte.
+        Green Leaves
+        {{contactForm.controls['cityState'].value.name}}, {{contactForm.controls['cityState'].value?.adminName1}},
+        {{contactForm.controls['cityState'].value?.countryName}} a {{contactForm.controls['date'].value | date:
+        'dd-MMM-yyyy'}}
+    </div>
+</div>
