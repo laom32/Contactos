@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactService } from 'app/services/contact.service';
 import { LocationsService } from 'app/services/locations.service';
@@ -12,7 +13,10 @@ import { map, Observable, startWith } from 'rxjs';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es' }
+  ]
 })
 export class ContactComponent implements OnInit {
   contactForm!: FormGroup;
