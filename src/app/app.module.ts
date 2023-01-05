@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { environment } from 'environments/environment';
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -34,5 +35,5 @@ export function getBaseUrl() {
   //    //  return  'https://g9c0phwqoi.execute-api.us-east-1.amazonaws.com/Prod/api/';
   //     return 'http://localhost:60915/api/';
   //     }
-  return "http://localhost:5000/api/";//document.getElementsByTagName('base')[0].href;
+  return environment.baseUrl;//document.getElementsByTagName('base')[0].href;
 }

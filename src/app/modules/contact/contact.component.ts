@@ -74,7 +74,6 @@ export class ContactComponent implements OnInit {
     }
     this._location.getLocations(txt).subscribe({
       next: data => {
-        console.log(data);
         if (data.isSuccess) {
           this.options = data.result.geoNames;
           this.filteredOptions = this.contactForm.controls["cityState"].valueChanges.pipe(
@@ -84,22 +83,13 @@ export class ContactComponent implements OnInit {
         }
       }, error: data => {
         console.log(data);
+        this._msg.alertWarning("Atención", `El servicio de busqueda no está disponible.`);
       }
     });
   }
   preSave() {
-    console.log(this.contactForm.value);
-
-
     if (this.contactForm.invalid) {
-      // Object.keys(this.contactForm.controls).forEach(key => {
-      //   const controlErrors: ValidationErrors = this.contactForm.get(key)?.errors || {};
-      //   if (controlErrors != null) {
-      //     Object.keys(controlErrors).forEach(keyError => {
-      //       console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-      //     });
-      //   }
-      // });
+
       let campos: string[] = [];
       if (this.contactForm.controls["name"].invalid) {
         campos.push("<br>- Nombre");
@@ -116,7 +106,6 @@ export class ContactComponent implements OnInit {
       if (this.contactForm.controls["cityState"].invalid) {
         campos.push("<br>- Ciudad y Estado");
       }
-      // console.log(campos.toString());
       this._msg.alertWarning("Atención", `Se encontraron los siguientes errores en sus datos de contacto: ${campos.toString()}`);
       return;
     }
@@ -128,13 +117,14 @@ export class ContactComponent implements OnInit {
     let dir = this.contactForm.value.cityState;
     const info = Object.assign({}, this.contactForm.value, { cityState: `${dir.name}, ${dir.adminName1}, ${dir.countryName}` });
     this.disableForm();
-    
+
     this._contact.Save(info).subscribe({
       next: data => {
-        console.log(data);
         if (data.isSuccess) {
           this.finish = true;
-          // this.resetForm();
+        }
+        else {
+          this._msg.alertWarning("Atención", `${data.msg}`);
         }
       }, error: data => {
         console.log(data);

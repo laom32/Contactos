@@ -50,3 +50,18 @@ button{
   justify-content: center;
   display: inline-block;
 }
+.text{
+  display: inline-block;
+  width: 50%;
+  margin-top: 2%;
+}
+.text-green{
+  color: #0cdc04 ;
+  font-weight: bold;
+}
+.text-start{
+  text-align: start;
+}
+.text-right{
+  text-align: right;
+}

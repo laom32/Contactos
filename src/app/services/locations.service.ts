@@ -12,7 +12,6 @@ export class LocationsService extends CrudService<any> {
     super(config.locationsUrl, http);
   }
   getLocations(lugar: string) {
-    console.log(this.endpoint);
     let url = `${this.endpoint}?location=${lugar}`;
     return this.http.get<any>(url);
   }

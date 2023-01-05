@@ -6,9 +6,6 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'index' },
   {
     path: '',
-    // canActivate: [NoAuthGuard],
-    // canActivateChild: [NoAuthGuard],
-    // component: ContactComponent,
     data: {
       layout: 'empty'
     },

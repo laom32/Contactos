@@ -9,11 +9,12 @@
             </div>
         </div>
     </div>
-    <div class="contenedor example-form">
-        <form [formGroup]="contactForm" class=" " *ngIf="!finish">
+    <div class="contenedor example-form" *ngIf="!finish">
+        <form [formGroup]="contactForm" class=" ">
             <mat-form-field class="example-full-width">
                 <mat-label>Nombre:</mat-label>
-                <input matInput type="text" formControlName="name" />
+                <input matInput type="text" formControlName="name" #txtName/>
+                <mat-hint align="end">{{txtName.value.length}} / 250</mat-hint>
                 <mat-error
                     *ngIf="contactForm.controls['name'].hasError('required') || contactForm.controls['name'].hasError('whiteSpacesError')">
                     El nombre es requerido.
@@ -35,10 +36,15 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>Teléfono:</mat-label>
-                <input matInput type="tel" formControlName="phone" />
+                <input matInput type="tel" formControlName="phone" #txtPhone/>
+                <mat-hint align="end">{{txtPhone.value.length}} / 15</mat-hint>
                 <mat-error
                     *ngIf="contactForm.controls['phone'].hasError('required') || contactForm.controls['phone'].hasError('whiteSpacesError')">
                     El teléfono es requerido.
+                </mat-error>
+                <mat-error
+                    *ngIf="contactForm.controls['phone'].hasError('pattern')">
+                    El teléfono no tiene el formato correcto.
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
@@ -68,19 +74,25 @@
                     Es necesario elegir una opción del listado.
                 </mat-error>
             </mat-form-field>
-            <button type="submit" mat-stroked-button  (click)="preSave()"
-                [disabled]="blockButton">Guardar</button>
+            <button type="submit" mat-stroked-button (click)="preSave()" [disabled]="blockButton">Guardar</button>
         </form>
     </div>
-    <div *ngIf="finish">
-        Estimado {{contactForm.controls['name'].value}},
-        Hemos recibido sus datos y nos pondremos en contacto con usted en la
-        brevedad posible. Enviaremos un correo con información a su cuenta:
-        {{contactForm.controls['email'].value}}.
-        Atte.
-        Green Leaves
-        {{contactForm.controls['cityState'].value.name}}, {{contactForm.controls['cityState'].value?.adminName1}},
-        {{contactForm.controls['cityState'].value?.countryName}} a {{contactForm.controls['date'].value | date:
-        'dd-MMM-yyyy'}}
+    <div *ngIf="finish" class="text ">
+        <div class="text-start">
+            Estimado/a <b>{{contactForm.controls['name']?.value}},</b>
+        </div>
+        <div class="text-start">
+            Hemos recibido sus datos y nos pondremos en contacto con usted en la
+            brevedad posible. Enviaremos un correo con información a su cuenta:
+            <strong>{{contactForm.controls['email'].value}}</strong>.
+        </div>
+        <div class="text-right">
+            <b>Atte.</b>
+            <div class="text-green"> Green Leaves</div>
+            {{contactForm.controls['cityState']?.value?.name}},
+            {{contactForm.controls['cityState']?.value?.adminName1}},
+            {{contactForm.controls['cityState']?.value?.countryName}} a {{contactForm.controls['date']?.value | date:
+            'dd-MMM-yyyy'}}
+        </div>
     </div>
 </div>
